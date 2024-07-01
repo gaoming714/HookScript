@@ -9,7 +9,7 @@ from util import (
     lumos,
 )
 
-logConfig("logs/allinOne.log", rotation="10 MB", level="DEBUG", lite=True)
+logConfig("logs/allinOne.log", rotation="10 MB", level="DEBUG", lite=False)
 
 BOX = []
 
@@ -35,14 +35,16 @@ def main(repo=None):
     # show debug msg
     logger.debug("Path {}".format(path))
     logger.debug("secret {}".format(secret))
-    logger.debug("segnature {}".format(secret))
-    logger.debug("expected {}".format(secret))
+    logger.debug("segnature {}".format(signature))
+    logger.debug("expected {}".format(expected_signature))
     if hmac.compare_digest(signature, expected_signature):
         logger.success("Signature verification succeeded. Executing pull...")
         res = pull(path)
         if res:
+            logger.success("git fetch & rebase successfully.")
             return "Pull executed successfully.", 200
         else:
+            logger.error("git fetch & rebase failed.")
             return "Pull executed failed.", 400
 
     else:
