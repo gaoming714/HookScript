@@ -1,0 +1,10 @@
+[repoA]
+
+path = "D:\\bin\\delta\\nsq\\FIFA"
+secret = ""
+
+
+[repoB]
+
+path = "/home/lambda/"
+secret = ""

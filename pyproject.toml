@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "hookscript"
+version = "0.1.0"
+description = ""
+authors = ["gaoming714 <gaoming714@outlook.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+flask = "^3.0.3"
+pendulum = "^3.0.0"
+tomlkit = "^0.12.5"
+loguru = "^0.7.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
