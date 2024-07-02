@@ -33,8 +33,8 @@ def main(repo=None):
         ).hexdigest()
     )
     # show debug msg
+    logger.debug("Repo {}".format(repo))
     logger.debug("Path {}".format(path))
-    logger.debug("secret {}".format(secret))
     logger.debug("segnature {}".format(signature))
     logger.debug("expected {}".format(expected_signature))
     if hmac.compare_digest(signature, expected_signature):
