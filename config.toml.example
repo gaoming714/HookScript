@@ -1,10 +1,14 @@
-[repoA]
+# HookScript config
+
+# port = 8000
+
+[repo.A]
 
 path = "D:\\bin\\delta\\nsq\\FIFA"
 secret = ""
 
 
-[repoB]
+[repo.B]
 
 path = "/home/lambda/"
 secret = ""

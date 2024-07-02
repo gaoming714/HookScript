@@ -20,7 +20,7 @@ app = Flask(__name__)
 def main(repo=None):
     if request.method == "GET":
         return "Hello World!"
-    detail = BOX.get(repo, None)
+    detail = BOX["repo"].get(repo, None)
     if not repo:
         return "No Repo local.", 400
     path = Path(detail["path"])
@@ -70,9 +70,10 @@ def boot():
     with open("config.toml", "r", encoding="utf-8") as f:
         config = tomlkit.parse(f.read())
     BOX = config
-    # logger.debug(BOX)
+    if "port" not in BOX:
+        BOX["port"] = 8000
 
 
 if __name__ == "__main__":
     boot()
-    app.run(debug=True, port=8000)
+    app.run(debug=True, port=BOX["port"])
