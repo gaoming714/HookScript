@@ -11,7 +11,7 @@ from util import (
 
 logConfig("logs/allinOne.log", rotation="10 MB", level="DEBUG", lite=False)
 
-BOX = []
+BOX = {}
 
 app = Flask(__name__)
 
@@ -70,6 +70,7 @@ def boot():
     with open("config.toml", "r", encoding="utf-8") as f:
         config = tomlkit.parse(f.read())
     BOX = config
+    # add default
     if "port" not in BOX:
         BOX["port"] = 8000
 
