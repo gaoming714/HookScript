@@ -36,6 +36,7 @@ def boot():
         with open("config.toml", "r", encoding="utf-8") as f:
             config = tomlkit.parse(f.read())
     except:
+        logger.error("Missing config.toml")
         raise
     BOX["port"] = config.get("port", 8000)
     BOX["command"] = config.get("command", "get pull")
