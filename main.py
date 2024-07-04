@@ -69,12 +69,17 @@ def boot():
     global BOX
     with open("config.toml", "r", encoding="utf-8") as f:
         config = tomlkit.parse(f.read())
-    BOX = config
+    # BOX = config
     # add default
-    if "port" not in BOX:
-        BOX["port"] = 8000
-    if "command" not in BOX:
-        BOX["command"] = "git pull"
+    # if "port" not in BOX:
+    #     BOX["port"] = 8000
+    # if "command" not in BOX:
+    #     BOX["command"] = "git pull"
+    BOX["port"] = config.get("port", 8000)
+    BOX["command"] = config.get("command", "get pull")
+    BOX["repo"] = config.get("repo", {})
+    if BOX["repo"] == {}:
+        logger.error("No repo in config.toml")
 
 
 if __name__ == "__main__":

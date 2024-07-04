@@ -1,6 +1,10 @@
 import pytest
 import main
 
+@pytest.fixture(scope='session', autouse=True)
+def init_boot():
+    main.BOX = {"port":8000, "command":"git pull", "repo":[]}
+    yield
 
 @pytest.fixture
 def mock_fix(monkeypatch, mocker):

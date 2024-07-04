@@ -26,10 +26,9 @@ def check():
         else:
             logger.error("Repo [{}] - Path not a Git {}".format(repo, repo_path))
         if "secret" in detail:
-            logger.info("SECRET: {}".format("********"))
+            logger.info("Repo [{}] - SECRET: {}".format(repo, "********"))
         else:
             logger.error("Missing SECRET")
-        print()
 
 def boot():
     global BOX
@@ -38,13 +37,12 @@ def boot():
             config = tomlkit.parse(f.read())
     except:
         raise
-    BOX = config
-    # add default
-    if "port" not in BOX:
-        BOX["port"] = 8000
-    if "command" not in BOX:
-        BOX["command"] = 8000
+    BOX["port"] = config.get("port", 8000)
+    BOX["command"] = config.get("command", "get pull")
+    BOX["repo"] = config.get("repo", {})
     logger.info("Port: {}".format(BOX["port"]))
+    if BOX["repo"] == {}:
+        logger.error("No repo in config.toml")
 
 
 if __name__ == "__main__":
