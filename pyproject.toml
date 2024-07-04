@@ -11,6 +11,8 @@ flask = "^3.0.3"
 pendulum = "^3.0.0"
 tomlkit = "^0.12.5"
 loguru = "^0.7.2"
+pytest = "^8.2.2"
+pytest-mock = "^3.14.0"
 
 
 [build-system]

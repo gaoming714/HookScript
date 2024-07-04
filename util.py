@@ -46,8 +46,8 @@ def logConfig(
     if lite:
         style = (
             " [ <level>{level: <8}</level>] "
-            + "<cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan>"
-            + "<green>♻ </green>"
+            # + "<cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan>"
+            # + "<green>♻ </green>"
             + "<level>{message}</level>"
         )
     else:

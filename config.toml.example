@@ -2,6 +2,8 @@
 
 # port = 8000
 
+# command = "git fetch && git rebase"
+
 [repo.A]
 
 path = "D:\\bin\\delta\\nsq\\FIFA"

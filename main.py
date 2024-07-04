@@ -57,7 +57,7 @@ def pull(repo_path):
     if not repo_path.exists() or not (repo_path / ".git").is_dir():
         logger.debug(f"No Repo {repo_path}")
         return
-    cmd = "cd {} && git fetch && git rebase".format(repo_path)
+    cmd = "cd {} && {}".format(repo_path, BOX["command"])
     res = lumos(cmd, warning=True)
     if res == 0:
         return True
@@ -73,6 +73,8 @@ def boot():
     # add default
     if "port" not in BOX:
         BOX["port"] = 8000
+    if "command" not in BOX:
+        BOX["command"] = "git pull"
 
 
 if __name__ == "__main__":
