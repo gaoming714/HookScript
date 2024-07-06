@@ -35,16 +35,19 @@ def main(repo=None):
     # show debug msg
     logger.debug("Repo {}".format(repo))
     logger.debug("Path {}".format(path))
-    logger.debug("segnature {}".format(signature))
-    logger.debug("expected {}".format(expected_signature))
+    logger.debug(
+        "Hash check\nsegnature - {}\nexpected  - {}".format(
+            signature, expected_signature
+        )
+    )
     if hmac.compare_digest(signature, expected_signature):
         logger.success("Signature verification succeeded. Executing pull...")
         res = pull(path)
         if res:
-            logger.success("git fetch & rebase successfully.")
+            logger.success("{} successfully.".format(BOX["command"]))
             return "Pull executed successfully.", 200
         else:
-            logger.error("git fetch & rebase failed.")
+            logger.error("{} failed.".format(BOX["command"]))
             return "Pull executed failed.", 400
 
     else:
@@ -67,7 +70,8 @@ def pull(repo_path):
 
 def boot():
     global BOX
-    with open("config.toml", "r", encoding="utf-8") as f:
+    config_path = Path() / "config.toml"
+    with open(config_path, "r", encoding="utf-8") as f:
         config = tomlkit.parse(f.read())
     # BOX = config
     # add default
@@ -76,7 +80,7 @@ def boot():
     # if "command" not in BOX:
     #     BOX["command"] = "git pull"
     BOX["port"] = config.get("port", 8000)
-    BOX["command"] = config.get("command", "get pull")
+    BOX["command"] = config.get("command", "git pull")
     BOX["repo"] = config.get("repo", {})
     if BOX["repo"] == {}:
         logger.error("No repo in config.toml")

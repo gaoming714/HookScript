@@ -13,6 +13,7 @@ logConfig("logs/init.log", rotation="10 MB", level="DEBUG", lite=True)
 
 BOX = {}
 
+
 def check():
     # Iterate over the repositories
     for repo, detail in BOX["repo"].items():
@@ -30,13 +31,18 @@ def check():
         else:
             logger.error("Missing SECRET")
 
+
 def boot():
     global BOX
+    config_path = Path() / "config.toml"
+    if not config_path.exists():
+        logger.error("Missing config.toml")
+        raise
     try:
-        with open("config.toml", "r", encoding="utf-8") as f:
+        with open(config_path, "r", encoding="utf-8") as f:
             config = tomlkit.parse(f.read())
     except:
-        logger.error("Missing config.toml")
+        logger.error("Error Parse config.toml")
         raise
     BOX["port"] = config.get("port", 8000)
     BOX["command"] = config.get("command", "get pull")

@@ -1,10 +1,12 @@
 import pytest
 import main
 
-@pytest.fixture(scope='session', autouse=True)
+
+@pytest.fixture(scope="session", autouse=True)
 def init_boot():
-    main.BOX = {"port":8000, "command":"git pull", "repo":[]}
+    main.BOX = {"port": 8000, "command": "git pull", "repo": []}
     yield
+
 
 @pytest.fixture
 def mock_fix(monkeypatch, mocker):
@@ -13,6 +15,7 @@ def mock_fix(monkeypatch, mocker):
 
     # monkeypatch.setattr("main.lumos", mock_lumos)
     mocker.patch("main.lumos", return_value=0)
+    yield
 
 
 def test_pull_success(mock_fix, tmp_path):
