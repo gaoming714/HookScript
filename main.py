@@ -74,12 +74,6 @@ def boot():
     config_path = Path() / "config.toml"
     with open(config_path, "r", encoding="utf-8") as f:
         config = tomlkit.parse(f.read())
-    # BOX = config
-    # add default
-    # if "port" not in BOX:
-    #     BOX["port"] = 8000
-    # if "command" not in BOX:
-    #     BOX["command"] = "git pull"
     BOX["port"] = config.get("port", 8000)
     BOX["repo"] = config.get("repo", {})
     if BOX["repo"] == {}:

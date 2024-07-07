@@ -1,8 +1,5 @@
 from pathlib import Path
 import tomlkit
-import hashlib
-import hmac
-from flask import Flask, request
 from util import (
     logConfig,
     logger,
