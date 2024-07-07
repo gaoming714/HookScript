@@ -7,3 +7,9 @@ hook:
 
 clean:
 	pm2 delete HookScript
+
+reload: install
+	pm2 reload HookScript
+
+install:
+	poetry install --no-root

@@ -4,7 +4,7 @@ import main
 
 @pytest.fixture(scope="session", autouse=True)
 def init_boot():
-    main.BOX = {"port": 8000, "command": "git pull", "repo": []}
+    main.BOX = {"port": 8000, "repo": {}}
     yield
 
 
@@ -23,6 +23,7 @@ def test_pull_success(mock_fix, tmp_path):
     repo_path.mkdir()
     (repo_path / ".git").mkdir()
     assert main.pull(repo_path) is True
+    assert main.pull(repo_path, "git fetch && git rebase && make reload") is True
 
 
 def test_pull_no_repo(mock_fix, tmp_path):

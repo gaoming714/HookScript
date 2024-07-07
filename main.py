@@ -24,6 +24,7 @@ def main(repo=None):
     if not repo:
         return "No Repo local.", 400
     path = Path(detail["path"])
+    command = detail.get("command", BOX.get("command", "git pull"))
     secret = detail["secret"]
     signature = request.headers.get("X-Hub-Signature-256", "")
     expected_signature = (
@@ -44,10 +45,10 @@ def main(repo=None):
         logger.success("Signature verification succeeded. Executing pull...")
         res = pull(path)
         if res:
-            logger.success("{} successfully.".format(BOX["command"]))
+            logger.success("{} successfully.".format(command))
             return "Pull executed successfully.", 200
         else:
-            logger.error("{} failed.".format(BOX["command"]))
+            logger.error("{} failed.".format(command))
             return "Pull executed failed.", 400
 
     else:
@@ -55,12 +56,12 @@ def main(repo=None):
         return "Invalid signature", 400
 
 
-def pull(repo_path):
+def pull(repo_path, command="git pull"):
     logger.info(f"Pulling {repo_path}")
     if not repo_path.exists() or not (repo_path / ".git").is_dir():
         logger.debug(f"No Repo {repo_path}")
         return
-    cmd = "cd {} && {}".format(repo_path, BOX["command"])
+    cmd = "cd {} && {}".format(repo_path, command)
     res = lumos(cmd, warning=True)
     if res == 0:
         return True
@@ -80,7 +81,6 @@ def boot():
     # if "command" not in BOX:
     #     BOX["command"] = "git pull"
     BOX["port"] = config.get("port", 8000)
-    BOX["command"] = config.get("command", "git pull")
     BOX["repo"] = config.get("repo", {})
     if BOX["repo"] == {}:
         logger.error("No repo in config.toml")
