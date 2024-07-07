@@ -72,8 +72,11 @@ You can use a Makefile or shell script to trigger PM2.
 Example command:
 
 ```shell
-pm2 start ./run.sh --name HookScript --silent --log
+pm2 start ./run.sh --name HookScript --restart-delay=3000 --silent --log
 ```
+
+> [!TIP]
+> `restart-delay` delay is designed for pm2 to upgrade itself.
 
 This command starts a new PM2 process named HookScript, runs silently, and logs the output
 
