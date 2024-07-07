@@ -50,13 +50,11 @@ def client(mocker):
     main.app.config["TESTING"] = True
     client = main.app.test_client()
 
-    # 初始化 BOX 变量
     main.BOX["repo"] = {
         "repo1": {"path": "/path/to/repo1", "secret": "secret1"},
         "repo2": {"path": "/path/to/repo2", "secret": "secret2"},
     }
 
-    # 模拟 pull 函数
     mocker.patch("main.pull", return_value=True)
 
     yield client

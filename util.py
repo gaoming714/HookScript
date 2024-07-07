@@ -42,7 +42,7 @@ def logConfig(
     logger.info("This is an info message")
     logger.debug("This is a debug message")
     """
-    logger.remove()  # 移除默认的处理程序（如果有的话）
+    logger.remove()
     if lite:
         style = (
             " [ <level>{level: <8}</level>] "
