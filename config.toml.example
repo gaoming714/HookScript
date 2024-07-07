@@ -8,7 +8,7 @@
 
 path = "D:\\bin\\delta\\nsq\\FIFA"
 secret = ""
-
+# command = "git fetch && git rebase && make reload"
 
 [repo.B]
 
