@@ -43,7 +43,7 @@ def main(repo=None):
     )
     if hmac.compare_digest(signature, expected_signature):
         logger.success("Signature verification succeeded. Executing pull...")
-        res = pull(path)
+        res = pull(path, command)
         if res:
             logger.success("{} successfully.".format(command))
             return "Pull executed successfully.", 200
