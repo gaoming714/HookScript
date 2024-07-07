@@ -63,7 +63,6 @@ def pull(repo_path, command="git pull"):
         return
     cmd = "cd {} && {}".format(repo_path, command)
     res = lumos(cmd, warning=True)
-    logger.debug("res {}".format(res))
     if res == 0:
         return True
     else:
