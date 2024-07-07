@@ -1,7 +1,6 @@
 # Project
 logs/
 config.toml
-poetry.lock
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
