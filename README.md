@@ -51,11 +51,17 @@ copy config.toml.example to config.toml.
 
 ### 4. install python dep. (poetry install, if you use poery)
 
-### 5. check config.toml, `poetry run python init.py`
+### 5. check config.toml,
+
+```shell
+poetry run python init.py
+```
 
 ### 6. run python main.py (flask app)
 
-`poetry run python main.py`
+```shell
+poetry run python main.py
+```
 
 
 ### 7. Setup PM2 as a Daemon
