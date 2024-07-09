@@ -27,6 +27,8 @@ def check():
             logger.info("Repo [{: <10}] - SECRET: {}".format(repo, "********"))
         else:
             logger.error("Missing SECRET")
+        if not detail.get("active", True):
+            logger.warning("Repo [{: <10}] - Active: {}".format(repo, False))
 
 
 def boot():

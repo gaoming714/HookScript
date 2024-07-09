@@ -14,3 +14,6 @@ reload: install
 
 install:
 	poetry install --no-root
+
+init:
+	poetry run python init.py
