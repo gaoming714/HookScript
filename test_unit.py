@@ -117,3 +117,23 @@ def test_main_repo_inactive(client):
 
     assert response.data == b"No Active Repo [repo3] local."
     assert response.status_code == 401
+
+def test_main_repo_404(client):
+    """测试 config.toml active = false"""
+    repo = "repo3"
+    secret = main.BOX["repo"][repo]["secret"]
+    data = b"some data"
+    invalid_signature = "sha256=invalidsignature"
+
+    response = client.post(
+        f"/", data=data, headers={"X-Hub-Signature-256": invalid_signature}
+    )
+
+    assert response.status_code == 404
+
+    response = client.post(
+        f"/empty", data=data, headers={"X-Hub-Signature-256": invalid_signature}
+    )
+
+    assert response.data == b"Not Found Repo [empty] local."
+    assert response.status_code == 404

@@ -21,7 +21,9 @@ def main(repo=None):
     if request.method == "GET":
         return "Hello World!"
     detail = BOX["repo"].get(repo, None)
-    if not detail or not detail.get("active", True):
+    if not detail:
+        return "Not Found Repo [{}] local.".format(repo), 404
+    if not detail.get("active", True):
         return "No Active Repo [{}] local.".format(repo), 401
     path = Path(detail["path"])
     command = detail.get("command", BOX.get("command", "git pull"))

@@ -14,6 +14,7 @@ BOX = {}
 def check():
     # Iterate over the repositories
     for repo, detail in BOX["repo"].items():
+        print()
         repo_path = Path(detail["path"])
         # Check if the path exists
         if repo_path.exists():
@@ -27,8 +28,11 @@ def check():
             logger.info("Repo [{: <10}] - SECRET: {}".format(repo, "********"))
         else:
             logger.error("Missing SECRET")
-        if not detail.get("active", True):
-            logger.warning("Repo [{: <10}] - Active: {}".format(repo, False))
+        if detail.get("active", True):
+            logger.success("Repo [{: <10}] - Active".format(repo))
+        else:
+            logger.warning("Repo [{: <10}] - Inactive".format(repo))
+
 
 
 def boot():
