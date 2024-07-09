@@ -16,23 +16,19 @@ def check():
     for repo, detail in BOX["repo"].items():
         print()
         repo_path = Path(detail["path"])
-        # Check if the path exists
-        if repo_path.exists():
-            if (repo_path / ".git").is_dir():
-                logger.success("Repo [{: <10}] - Path {}".format(repo, repo_path))
-            else:
-                logger.error("Repo [{: <10}] - Path Not Found {}".format(repo, repo_path))
+        active = detail.get("active", True)
+        if repo_path.exists() and (repo_path / ".git").is_dir() and active:
+            logger.success("Repo [{: <10}] - Active - {}".format(repo, repo_path))
         else:
-            logger.error("Repo [{: <10}] - Path not a Git {}".format(repo, repo_path))
+            logger.info("Repo [{: <10}] - Inactive - {}".format(repo, repo_path))
+            if repo_path.exists():
+                logger.error("Repo [{: <10}] - Path Not Found {}".format(repo, repo_path))
+            elif (repo_path / ".git").is_dir():
+                logger.error("Repo [{: <10}] - Path not a Git {}".format(repo, repo_path))
         if "secret" in detail:
             logger.info("Repo [{: <10}] - SECRET: {}".format(repo, "********"))
         else:
             logger.error("Missing SECRET")
-        if detail.get("active", True):
-            logger.success("Repo [{: <10}] - Active".format(repo))
-        else:
-            logger.warning("Repo [{: <10}] - Inactive".format(repo))
-
 
 
 def boot():
