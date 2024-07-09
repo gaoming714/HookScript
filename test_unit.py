@@ -53,6 +53,7 @@ def client(mocker):
     main.BOX["repo"] = {
         "repo1": {"path": "/path/to/repo1", "secret": "secret1"},
         "repo2": {"path": "/path/to/repo2", "secret": "secret2"},
+        "repo3": {"path": "/path/to/repo3", "secret": "secret3", "active": False},
     }
 
     mocker.patch("main.pull", return_value=True)
@@ -102,3 +103,17 @@ def test_main_post_invalid_signature(client):
 
     assert response.data == b"Invalid signature"
     assert response.status_code == 400
+
+def test_main_repo_inactive(client):
+    """测试 config.toml active = false"""
+    repo = "repo3"
+    secret = main.BOX["repo"][repo]["secret"]
+    data = b"some data"
+    invalid_signature = "sha256=invalidsignature"
+
+    response = client.post(
+        f"/{repo}", data=data, headers={"X-Hub-Signature-256": invalid_signature}
+    )
+
+    assert response.data == b"No Active Repo [repo3] local."
+    assert response.status_code == 401

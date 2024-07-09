@@ -18,13 +18,13 @@ def check():
         # Check if the path exists
         if repo_path.exists():
             if (repo_path / ".git").is_dir():
-                logger.success("Repo [{}] - Path {}".format(repo, repo_path))
+                logger.success("Repo [{: <10}] - Path {}".format(repo, repo_path))
             else:
-                logger.error("Repo [{}] - Path Not Found {}".format(repo, repo_path))
+                logger.error("Repo [{: <10}] - Path Not Found {}".format(repo, repo_path))
         else:
-            logger.error("Repo [{}] - Path not a Git {}".format(repo, repo_path))
+            logger.error("Repo [{: <10}] - Path not a Git {}".format(repo, repo_path))
         if "secret" in detail:
-            logger.info("Repo [{}] - SECRET: {}".format(repo, "********"))
+            logger.info("Repo [{: <10}] - SECRET: {}".format(repo, "********"))
         else:
             logger.error("Missing SECRET")
 
@@ -44,7 +44,7 @@ def boot():
     BOX["port"] = config.get("port", 8000)
     BOX["command"] = config.get("command", "get pull")
     BOX["repo"] = config.get("repo", {})
-    logger.info("Port: {}".format(BOX["port"]))
+    logger.info("Port [{: <10}]".format(BOX["port"]))
     if BOX["repo"] == {}:
         logger.error("No repo in config.toml")
 
