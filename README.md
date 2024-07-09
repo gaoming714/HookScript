@@ -1,4 +1,5 @@
 # HookScript
+
 > [!NOTE]
 > A minimal Flask application to handle github webhook.
 >
@@ -13,7 +14,6 @@
 >
 > 步骤：将 repoName&repoPath 添加到 config.toml，然后仅运行守护进程。
 
-
 ## Requirements
 
 - Set up github webhook (Payload URL and SECRET)
@@ -25,7 +25,7 @@
 
 ### 1. set github webhook
 
-set webhook  Payload URL, ex. `http://webhook.jokerpy.top/pool`
+set webhook Payload URL, ex. `http://webhook.jokerpy.top/pool`
 
 Note: Use `pool` as the repo alias to run the local path (match step 3 repoName)
 
@@ -39,9 +39,7 @@ make sure `http://webhook.jokerpy.top/pool` can be finded by flask
 
 copy config.toml.example to config.toml.
 
-
-
-- `[repo.repoName]`  repoName represents the repo alias set in step 1
+- `[repo.repoName]` repoName represents the repo alias set in step 1
 
 - `path` specifies the local path on the server corresponding to the GitHub repository (e.g., the directory where you want to execute commands) (cd path)
 
@@ -63,7 +61,6 @@ poetry run python init.py
 poetry run python main.py
 ```
 
-
 ### 7. Setup PM2 as a Daemon
 
 Configure PM2 to monitor and run the Python script as a daemon.
@@ -72,15 +69,14 @@ You can use a Makefile or shell script to trigger PM2.
 Example command:
 
 ```shell
-pm2 start ./run.sh --name HookScript --restart-delay=3000 --silent --log
+pm2 start ./run.sh --name HookScript  --silent --log
 ```
-
-> [!TIP]
-> `restart-delay` delay is designed for pm2 to upgrade itself.
 
 This command starts a new PM2 process named HookScript, runs silently, and logs the output
 
-
+> [!TIP]
+> restart project itself, add these to config.toml as command
+> command = "git pull && (sleep 10; make reload) &"
 
 ## Final
 
